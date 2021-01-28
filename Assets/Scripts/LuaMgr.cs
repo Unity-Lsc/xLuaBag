@@ -65,6 +65,7 @@ public class LuaMgr : BaseManager<LuaMgr>
         string path = Application.dataPath + "/LuaScripts/" + filePath + ".lua";
 
         if (File.Exists(path)) {
+            //Debug.Log(filePath);
             return File.ReadAllBytes(path);
         } else {
             Debug.Log("MyCustomLoader重定向失败,文件名:" + filePath);
