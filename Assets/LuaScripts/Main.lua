@@ -1,0 +1,1 @@
+print("Main.lua 准备就绪")
