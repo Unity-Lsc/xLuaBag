@@ -1,47 +1,42 @@
---一个面板对应一个表
-BagPanel = {}
+require("UI/ItemGrid")
 
---成员变量
---面板对象
-BagPanel.panelObj = nil
---各个控件
-BagPanel.btnClose = nil
-BagPanel.togEquip = nil
-BagPanel.togProp = nil
-BagPanel.togGem = nil
-BagPanel.scrollBag = nil
+--一个面板对应一个表
+BasePanel:subClass("BagPanel")
+
 BagPanel.content = nil
+BagPanel.curType = -1
+
+--用来存储当前页签下的物品
+BagPanel.items = {}
 
 --成员方法
 --初始化方法
-function BagPanel:Init()
-    if self.panelObj == nil then
-        self.panelObj = ABMgr:LoadRes("ui","BagPanel",typeof(GameObject))
-        self.panelObj.transform:SetParent(RootCanvas,false)
-        local tran = self.panelObj.transform
-        self.btnClose = tran:Find("btnClose"):GetComponent(typeof(Button))
-        self.togEquip = tran:Find("Group/togEquip"):GetComponent(typeof(Toggle))
-        self.togProp = tran:Find("Group/togProp"):GetComponent(typeof(Toggle))
-        self.togGem = tran:Find("Group/togGem"):GetComponent(typeof(Toggle))
-        self.scrollBag = tran:Find("scrollBag"):GetComponent(typeof(ScrollRect))
-        self.content = self.scrollBag.transform:Find("Viewport/Content"):GetComponent(typeof(Transform))
+function BagPanel:Init(panelName)
+    self.base.Init(self,panelName)
+    if self.isInit == false then
+        self.isInit = true
+        self.content = self:GetComp("scrollBag","ScrollRect").transform:Find("Viewport/Content"):GetComponent(typeof(Transform))
         --添加事件
         --关闭按钮事件
-        self.btnClose.onClick:AddListener(function()
+        self:GetComp("btnClose","Button").onClick:AddListener(function()
             self:Hide()
         end)
         --单选框事件
-        self.togEquip.onValueChanged:AddListener(function(value)
+        self:GetComp("togEquip","Toggle").onValueChanged:AddListener(function(value)
+            --self.togEquip.interactable = not value and true or false
+            self:GetComp("togEquip","Toggle").interactable = (value and {false} or {true})[1]
             if value == true then
                 self:ChangeType(1)
             end
         end)
-        self.togProp.onValueChanged:AddListener(function(value)
+        self:GetComp("togProp","Toggle").onValueChanged:AddListener(function(value)
+            self:GetComp("togProp","Toggle").interactable = (value and {false} or {true})[1]
             if value == true then
                 self:ChangeType(2)
             end
         end)
-        self.togGem.onValueChanged:AddListener(function(value)
+        self:GetComp("togGem","Toggle").onValueChanged:AddListener(function(value)
+            self:GetComp("togGem","Toggle").interactable = (value and {false} or {true})[1]
             if value == true then
                 self:ChangeType(3)
             end
@@ -51,17 +46,42 @@ end
 
 --显示隐藏
 ---显示背包面板
-function BagPanel:Show()
-    self:Init()
-    self.panelObj:SetActive(true)
+function BagPanel:Show(panelName)
+    self.base.Show(self,panelName)
+    if self.curType == -1 then
+        self:ChangeType(1)
+    end
 end
 
----隐藏背包面板
-function BagPanel:Hide()
-    self.panelObj:SetActive(false)
-end
-
-
+-- 1装备 2道具 3宝石
 function BagPanel:ChangeType(type)
-    print("当前页签为:" .. type)
+    self.curType = type
+    --先清空老格子
+    for i = 1, #self.items do
+        self.items[i]:Destroy()
+    end
+    self.items = {}
+
+    local curItems = nil
+    if type == 1 then
+        curItems = PlayerData.equips
+    elseif type == 2 then
+        curItems = PlayerData.items
+    elseif type == 3 then
+        curItems = PlayerData.gems
+    end
+
+    if curItems ~= nil then
+        for i = 1, #curItems do
+            --根据数据,创建格子对象
+            local grid = ItemGrid:new()
+            --实例化对象,设置位置
+            grid:Init(self.content,(i - 1)%4 * 170,math.floor((i - 1) / 4) * 170)
+            --初始化它的信息 设置图标和数量
+            grid:InitData(curItems[i])
+
+            table.insert(self.items,grid)
+        end
+    end
+
 end

@@ -27,13 +27,7 @@ public class ABMgr : SingletonAutoMono<ABMgr>
     /// </summary>
     private string MainPlatformName {
         get {
-#if UNITY_IOS
-            return "IOS";
-#elif UNITY_ANDROID
-            return "Android";
-#else
-            return "PC";
-#endif
+            return PathTools.GetPlatformName();
         }
     }
 

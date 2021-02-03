@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 804608154
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a0cfa3359d081fa4544d752bdf4d7837
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/LuaText/JsonUtility.lua.txt
+- Assets/LuaText/SplitTools.lua.txt
+- Assets/LuaText/Object.lua.txt
+- Assets/LuaText/PlayerData.lua.txt
+- Assets/LuaText/Main.lua.txt
+- Assets/LuaText/InitClass.lua.txt
+- Assets/LuaText/ItemData.lua.txt
+Dependencies: []
