@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 804608154
+CRC: 1242531155
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a0cfa3359d081fa4544d752bdf4d7837
+    Hash: 8f96c40f2dbc927717846a933bc5379f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -13,10 +13,15 @@ ClassTypes:
   Script: {instanceID: 0}
 Assets:
 - Assets/LuaText/JsonUtility.lua.txt
+- Assets/LuaText/EventSystem.lua.txt
+- Assets/LuaText/BasePanel.lua.txt
+- Assets/LuaText/MainPanel.lua.txt
 - Assets/LuaText/SplitTools.lua.txt
+- Assets/LuaText/ItemGrid.lua.txt
 - Assets/LuaText/Object.lua.txt
 - Assets/LuaText/PlayerData.lua.txt
 - Assets/LuaText/Main.lua.txt
+- Assets/LuaText/BagPanel.lua.txt
 - Assets/LuaText/InitClass.lua.txt
 - Assets/LuaText/ItemData.lua.txt
 Dependencies: []

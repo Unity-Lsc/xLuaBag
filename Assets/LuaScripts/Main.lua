@@ -8,6 +8,6 @@ require("PlayerData")
 PlayerData:Init()
 
 --添加主页面
-require("UI/BasePanel")
-require("UI/MainPanel")
+require("BasePanel")
+require("MainPanel")
 MainPanel:Show("MainPanel")

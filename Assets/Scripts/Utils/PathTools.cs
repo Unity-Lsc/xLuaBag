@@ -31,7 +31,8 @@ public class PathTools
     /// </summary>
     public static string GetABOutPath()
     {
-        return GetPlatformPath() + "/" + GetPlatformName();
+        //return GetPlatformPath() + "/" + GetPlatformName();
+        return GetPlatformPath();
     }
 
     /// <summary>

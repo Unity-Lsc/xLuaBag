@@ -1,10 +1,15 @@
-require("UI/ItemGrid")
+require("ItemGrid")
+local EventSystem = require("EventSystem")
 
 --一个面板对应一个表
 BasePanel:subClass("BagPanel")
 
 BagPanel.content = nil
 BagPanel.curType = -1
+BagPanel.imgDes = nil
+BasePanel.txtItemName = nil
+BasePanel.txtItemDes = nil
+BasePanel.btnItemClose = nil
 
 --用来存储当前页签下的物品
 BagPanel.items = {}
@@ -16,6 +21,11 @@ function BagPanel:Init(panelName)
     if self.isInit == false then
         self.isInit = true
         self.content = self:GetComp("scrollBag","ScrollRect").transform:Find("Viewport/Content"):GetComponent(typeof(Transform))
+        self.imgDes = self.panelObj.transform:Find("imgDes"):GetComponent(typeof(Image))
+        self.txtItemName = self.imgDes.transform:Find("txtItemName"):GetComponent(typeof(Text))
+        self.txtItemDes = self.imgDes.transform:Find("txtItemDes"):GetComponent(typeof(Text))
+        self.btnItemClose = self.imgDes.transform:Find("btnItemClose"):GetComponent(typeof(Button))
+        
         --添加事件
         --关闭按钮事件
         self:GetComp("btnClose","Button").onClick:AddListener(function()
@@ -41,6 +51,12 @@ function BagPanel:Init(panelName)
                 self:ChangeType(3)
             end
         end)
+        self.btnItemClose.onClick:AddListener(function ()
+            self.imgDes.gameObject:SetActive(false)
+        end)
+        EventSystem.AddListener("OnItemEnter",function (name,des)
+            self:OnItemEnter(name,des)
+        end)
     end
 end
 
@@ -48,6 +64,7 @@ end
 ---显示背包面板
 function BagPanel:Show(panelName)
     self.base.Show(self,panelName)
+    self.imgDes.gameObject:SetActive(false)
     if self.curType == -1 then
         self:ChangeType(1)
     end
@@ -84,4 +101,11 @@ function BagPanel:ChangeType(type)
         end
     end
 
+end
+
+
+function BagPanel:OnItemEnter(name,des)
+    self.imgDes.gameObject:SetActive(true)
+    self.txtItemName.text = name
+    self.txtItemDes.text = des
 end

@@ -27,7 +27,7 @@ public class LuaMgr : BaseManager<LuaMgr>
     public void Init() {
         if (luaEnv != null) return;
         luaEnv = new LuaEnv();
-        luaEnv.AddLoader(MyCustomLoader);
+        //luaEnv.AddLoader(MyCustomLoader);
         luaEnv.AddLoader(MyCustomABLoader);
     }
 

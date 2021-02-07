@@ -1,13 +1,13 @@
 ManifestFileVersion: 0
-CRC: 823181838
+CRC: 2805872611
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: ui
+      Name: lua
       Dependencies: {}
     Info_1:
-      Name: json
+      Name: ui
       Dependencies: {}
     Info_2:
-      Name: lua
+      Name: json
       Dependencies: {}

@@ -1,5 +1,5 @@
 
-require("UI/BagPanel")
+require("BagPanel")
 
 BasePanel:subClass("MainPanel")
 
